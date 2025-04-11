@@ -1,4 +1,5 @@
 import java.io.*;
+import java.text.Normalizer;
 import java.util.Scanner;
 
 public class Main {
@@ -62,6 +63,11 @@ public class Main {
                     }
                 }
             }
+        }
+
+        public static String removeAcento( String palavra){
+            String normalizada = Normalizer.normalize(palavra, Normalize.Form.NFD);
+            return normalizada.replaceAll("[^\\p{ASCII}]","");
         }
     }
 
@@ -127,7 +133,7 @@ public class Main {
         try (Scanner scanner = new Scanner(new File(arquivo))) {
             while (scanner.hasNext()) {
                 String token = scanner.next();
-                String palavra = token.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+                String palavra = removerAcento(token).replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
                 if (palavra.isEmpty()) continue;
 
