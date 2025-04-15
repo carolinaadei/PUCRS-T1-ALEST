@@ -133,7 +133,7 @@ public class Main {
         try (Scanner scanner = new Scanner(new File(arquivo))) {
             while (scanner.hasNext()) {
                 String token = scanner.next();
-                String palavra = removeAcento(token).replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+                String palavra = removeAcento(token).replaceAll("[^a-zA-Z]", "").toLowerCase();
 
                 if (palavra.isEmpty()) continue;
 
