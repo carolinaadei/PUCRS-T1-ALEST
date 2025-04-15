@@ -64,11 +64,6 @@ public class Main {
                 }
             }
         }
-
-        public static String removeAcento( String palavra){
-            String normalizada = Normalizer.normalize(palavra, Normalize.Form.NFD);
-            return normalizada.replaceAll("[^\\p{ASCII}]","");
-        }
     }
 
     public static class NoPalindromo {
@@ -84,7 +79,7 @@ public class Main {
     public static class ListaPalindromos {
         NoPalindromo inicio;
 
-        void adicionar (String palavra) {
+        void adicionar(String palavra) {
             if (existe(palavra)) return;
 
             NoPalindromo novo = new NoPalindromo(palavra);
@@ -120,6 +115,11 @@ public class Main {
         return true;
     }
 
+    public static String removeAcento(String palavra) {
+        String normalizada = Normalizer.normalize(palavra, Normalizer.Form.NFD);
+        return normalizada.replaceAll("[^\\p{ASCII}]", "");
+    }
+
     public static void main(String[] args) {
         if (args.length < 1) {
             System.out.println("ContadorPalavras <arquivo.txt>");
@@ -133,7 +133,7 @@ public class Main {
         try (Scanner scanner = new Scanner(new File(arquivo))) {
             while (scanner.hasNext()) {
                 String token = scanner.next();
-                String palavra = removerAcento(token).replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+                String palavra = removeAcento(token).replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
                 if (palavra.isEmpty()) continue;
 
